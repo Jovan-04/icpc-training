@@ -8,7 +8,7 @@ def main():
 def num_rolls_to_target(n: int, k: int, target: int) -> int:
   num = roll(n, k, target, 0, 0)
 
-  return num % 10e9 + 7
+  return num % (10**9 + 7)
 
 def roll(n: int, k: int, target: int, total: int):
   if n == 0:

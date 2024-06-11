@@ -21,7 +21,7 @@ def numRollsToTarget(n: int, k: int, target: int) -> int:
                 seen.append(temp_list)
             if temp_list[i] < k and curr_sum < target:
                 queue.append(temp_list)
-    return count & (10**9 + 7)
+    return count % (10**9 + 7)
 
 
 num = numRollsToTarget(n = 30, k = 30, target = 500)
