@@ -1,58 +1,58 @@
 from sys import stdin
 
 
+
+#Cycle through each edge and see if operation would increase or decrease the sum of those two nodes
+#If it increased the sum, then make the change
+def maximumValueSum(nums, k, edges):
+        max_sum = sum(nums)
+        prev_sum = -1
+
+        count = 0
+        change_made = True
+        while change_made and max_sum >= prev_sum:
+            change_made = False
+            count += 1
+            prev_sum = max_sum
+
+            for edge in edges:
+                u = nums[edge[0]]
+                v = nums[edge[1]]
+
+                bef_sum = u + v
+                aft_sum = u ^ k + v ^ k
+
+                if bef_sum < aft_sum:
+                    #print(bef_sum, aft_sum)
+                    nums[edge[0]] = u ^ k
+                    nums[edge[1]] = v ^ k
+
+                    max_sum = sum(nums)
+                    print
+                    change_made = True
+
+        print(nums)
+        return max_sum
+
+nums = list(stdin.readline().split())
+nums = [int(_) for _ in nums]
+
+k = int(stdin.readline().strip())
+
+
+
+
+#Read in from test file
+edges = []
 lines = stdin.readlines()
-
-
-lines = [line.split() for line in lines]
-
-switch = False
-group1 = []
-group2 = []
-
 for line in lines:
-    if line == []:
-        switch = True
+    curr_line = line.split()
+    temp_list = []
+    for _ in curr_line:
+        temp_list.append(int(_.strip()))
+    edges.append(temp_list)
+        
 
-    if not switch and line != []:
-        group1.append(line)
-    elif line != []:
-        group2.append(line)
+print(nums, k, edges)
 
-
-no_mismatches = True
-for i in range(len(group1)):
-    curgroup1firstname = group1[i][0].lower()
-    curgroup1lastname = group1[i][1].lower()
-    curgroup1address = group1[i][2].lower()
-
-    no_match = True
-    for j in range(len(group2)):
-        curgroup2firstname = group2[j][0].lower()
-        curgroup2lastname = group2[j][1].lower()
-        curgroup2address = group2[j][2].lower()
-        if (curgroup1firstname == curgroup2firstname and curgroup1lastname == curgroup2lastname) or curgroup1address == curgroup2address:
-            no_match = False
-    
-    if no_match:
-        print("I", curgroup1address, curgroup1lastname, curgroup1firstname)
-        no_mismatches = False
-
-for i in range(len(group2)):
-    curgroup2firstname = group2[i][0].lower()
-    curgroup2lastname = group2[i][1].lower()
-    curgroup2address = group2[i][2].lower()
-    no_match = True
-    for j in range(len(group1)):
-        curgroup1firstname = group1[j][0].lower()
-        curgroup1lastname = group1[j][1].lower()
-        curgroup1address = group1[j][2].lower()
-        if (curgroup1firstname == curgroup2firstname and curgroup1lastname == curgroup2lastname) or curgroup1address == curgroup2address:
-            no_match = False
-    
-    if no_match:
-        print("O", curgroup2address, curgroup2lastname, curgroup2firstname)
-        no_mismatches = False
-
-if no_mismatches:
-    print("No mismatches.")
+print(maximumValueSum(nums, k, edges))
