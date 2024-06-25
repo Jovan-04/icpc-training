@@ -30,7 +30,7 @@ def isFair(k, n, cards):
     
     div = int(n / k)
     for i in range(div):
-        if not isSequential(cards[(i)*div : (i+1)*div]):
+        if not isSequential(cards[(i)*k : (i+1)*k]):
 
             return False
     return True
