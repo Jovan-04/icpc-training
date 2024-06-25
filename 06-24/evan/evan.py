@@ -112,7 +112,7 @@ class Graph(object):
 
 def main():
     # parse input
-    dictionary, cases = map(lambda s: s.split('\n'), stdin.read().split('\n\n'))
+    dictionary, cases = map(lambda s: s.split('\n'), stdin.read().strip().split('\n\n'))
     # print(dictionary, cases)
     # ['booster', 'rooster', 'roaster', 'coasted', 'roasted', 'coastal', 'postal'], ['booster roasted', 'coastal postal']
 
