@@ -26,6 +26,8 @@ def main():
   print("fair")
   
 def is_consecutive(group: list[int]) -> bool:
+  if len(group) == 0:
+    return True
   n, *nums = group
   for num in nums:
     if num == n + 1:
