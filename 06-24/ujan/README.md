@@ -8,8 +8,8 @@ assign each city a unique integer value from 1 to n in a way that maximizes the
 country's importance.
 
 A country's importance is defined as the sum of the importance of its roads. The
-importance of a road connecting cities A and B is defined as the sum of the
-values of A and B.
+importance of a road connecting cities A and B is the sum of the values you've
+assigned to A and B.
 
 ## Input
 
