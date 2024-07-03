@@ -1,4 +1,5 @@
 from sys import stdin
+from datetime import datetime
 
 class Graph(object):
 
@@ -73,7 +74,7 @@ class Graph(object):
             res += str(edge) + " "
         return res
     
-    # find a path from start_vertex to end_vertex in graph
+    # find a path from start_vertex to end_vertex in graph - BFS
     def find_path(self, start_vertex, end_vertex, path=None):
             if path == None:
                 path = []
@@ -112,20 +113,23 @@ class Graph(object):
 
 def main():
     # parse input
-    dictionary, cases = map(lambda s: s.split('\n'), stdin.read().strip().split('\n\n'))
+    dictionary, cases = map(lambda s: s.split('\n'), stdin.read().strip().split('\n\n')) # this line might be slow too? but I tested it with a random jumble of 25k words and it finished almost instantly
     # print(dictionary, cases)
     # ['booster', 'rooster', 'roaster', 'coasted', 'roasted', 'coastal', 'postal'], ['booster roasted', 'coastal postal']
-
+    print('done reading at', datetime.now().minute, datetime.now().second)
     # create graph to represent word relations
     g = Graph()
     for word in dictionary:
         g.add_vertex(word)
 
+    L = len(dictionary)
     # add edge between all words of diff 1
-    for i in dictionary:
-        for j in dictionary:
-            if levenshtein_dist(i, j) == 1:
-                g.add_edge([i, j])
+    for i, word_1 in enumerate(dictionary):
+        for j in range(i, L):
+            if evans_lev_dist(word_1, dictionary[j]) == 1:
+                g.add_edge([word_1, dictionary[j]])
+
+    print('done making graph at', datetime.now().minute, datetime.now().second)
 
     # find solutions to all cases
     for case in cases:
@@ -138,32 +142,28 @@ def main():
             print("No solution.")
         print()
 
-# source: https://www.geeksforgeeks.org/introduction-to-levenshtein-distance/
-def levenshtein_dist(str1: str, str2: str) -> int:
-    m = len(str1)
-    n = len(str2)
- 
-    # Initialize a matrix to store the edit distances
-    dp = [[0 for _ in range(n + 1)] for _ in range(m + 1)]
- 
-    # Initialize the first row and column with values from 0 to m and 0 to n respectively
-    for i in range(m + 1):
-        dp[i][0] = i
-    for j in range(n + 1):
-        dp[0][j] = j
- 
-    # Fill the matrix using dynamic programming to compute edit distances
-    for i in range(1, m + 1):
-        for j in range(1, n + 1):
-            if str1[i - 1] == str2[j - 1]:
-                # Characters match, no operation needed
-                dp[i][j] = dp[i - 1][j - 1]
-            else:
-                # Characters don't match, choose minimum cost among insertion, deletion, or substitution
-                dp[i][j] = 1 + min(dp[i][j - 1], dp[i - 1][j], dp[i - 1][j - 1])
- 
-    # Return the edit distance between the strings
-    return dp[m][n]
+    print('done at', datetime.now().minute, datetime.now().second)
+
+def evans_lev_dist(str1: str, str2: str) -> int: # O(n) complexity
+    '''returns 0/1 if lev dist between two words of the same length are 0/1 respectively, or 2 otherwise'''
+    diff = 0
+    for c1, c2 in zip(str1, str2):
+        if diff > 1:
+            break
+        if c1 == c2:
+            continue
+        else:
+            diff += 1
+    return diff
+
+# trash, the issue likely isn't with the dist function, we're already at O(n)
+# def evan_lev_dist_v2(str1: str, str2: str) -> int:
+#     str1 = str1.encode()
+#     str2 = str2.encode()
+#     print(str1)
+#     print(str2)
+
+#     print(str1 ^ str2)
 
 if __name__ == '__main__':
   main()
