@@ -1,1 +1,1 @@
-https://open.kattis.com/problems/leaderboardeffect
+https://nac22.kattis.com/contests/nac22/problems/triangularlogs
