@@ -1,1 +1,1 @@
-https://nac22.kattis.com/contests/nac22/problems/tictactoecounting
+https://open.kattis.com/problems/tictactoecounting
