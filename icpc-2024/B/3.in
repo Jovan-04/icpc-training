@@ -1,0 +1,7 @@
+6 3
+2 L 10 4 b   R 4 1 c  
+4 L 10 4 b   L 13 7 d   L 5 3 e  R 3 1 f  
+4 L 10 4 b   L 13 7 d   L 5 3 e  L 10 0 g  
+3 L 10 4 b   L 13 7 d   R 4 3 h  
+2 R 15 4 i   R 10 3 j  
+2 R 15 4 i   L 20 8 k  
